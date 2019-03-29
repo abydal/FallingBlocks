@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>Falling_blocks_core</RootNamespace>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+  <None Update="bakgrunn.bmp" CopyToOutputDirectory="PreserveNewest" />
+  <None Update="panel_bakgrunn.bmp" CopyToOutputDirectory="PreserveNewest" />
+  <None Update="tetrisblokk_gr.bmp" CopyToOutputDirectory="PreserveNewest" />
+  <None Update="tetrisblokk_g.bmp" CopyToOutputDirectory="PreserveNewest" />
+  <None Update="tetrisblokk_b.bmp" CopyToOutputDirectory="PreserveNewest" />
+  <None Update="tetrisblokk.bmp" CopyToOutputDirectory="PreserveNewest" />
+  <None Update="blokk.ico" CopyToOutputDirectory="PreserveNewest" />
+</ItemGroup>
+
+</Project>
