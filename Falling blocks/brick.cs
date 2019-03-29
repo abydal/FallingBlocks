@@ -4,8 +4,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Falling_blocks {
-    class brick {
+namespace FallingBlocks {
+    partial class Brick {
         public int points = 0;
         public int[, ] shape;
         public int[, ] nextShape;
@@ -19,22 +19,14 @@ namespace Falling_blocks {
 
         int brickx, bricky;
 
-        int[, ] square = { { 0, 0, 0, 0 }, { 0, 1, 1, 0 }, { 0, 1, 1, 0 }, { 0, 0, 0, 0 } };
-        int[, ] hook = { { 0, 1, 0, 0 }, { 0, 1, 1, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 0 } };
-        int[, ] pyramid = { { 0, 1, 0, 0 }, { 0, 1, 1, 0 }, { 0, 1, 0, 0 }, { 0, 0, 0, 0 } };
-        int[, ] bar = { { 0, 0, 0, 0 }, { 1, 1, 1, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
-        int[, ] lbar = { { 0, 1, 0, 0 }, { 0, 1, 0, 0 }, { 0, 1, 1, 0 }, { 0, 0, 0, 0 } };
-        int[, ] lbarInv = { { 0, 0, 1, 0 }, { 0, 0, 1, 0 }, { 0, 1, 1, 0 }, { 0, 0, 0, 0 } };
-        int[, ] hookInv = { { 0, 0, 1, 0 }, { 0, 1, 1, 0 }, { 0, 1, 0, 0 }, { 0, 0, 0, 0 } };
-
-        public brick (int[, ] b) {
+        public Brick (int[, ] b) {
             brett = b;
-            reset ();
+            Reset ();
         }
 
-        public brick () { }
+        public Brick () { }
 
-        public void undrawMe () {
+        public void Undraw () {
             for (int y = 0; y < 4; y++) {
                 for (int x = 0; x < 4; x++) {
                     if (brickx + x < 10 && bricky + y < 20 && brickx + x > -1 && bricky + y > -1) {
@@ -45,7 +37,7 @@ namespace Falling_blocks {
             }
         }
 
-        public void drawMe () {
+        public void Draw () {
             for (int y = 0; y < 4; y++) {
                 for (int x = 0; x < 4; x++) {
                     if (brickx + x < 10 && bricky + y < 20 && brickx + x > -1 && bricky + y > -1) {
@@ -56,10 +48,10 @@ namespace Falling_blocks {
             }
         }
 
-        public bool canMoveDown (int addy) {
+        public bool CanMoveDown (int addy) {
             int temp;
 
-            if (bricky + brickSize ("y", shape) == 19)
+            if (bricky + BrickSize (Direction.Y, shape) == 19)
                 return false;
 
             for (int y = 0; y < 4; y++) {
@@ -84,19 +76,19 @@ namespace Falling_blocks {
             return true;
         }
 
-        public bool canMoveLeft (int addx, int[, ] b) {
+        public bool CanMoveLeft (int addx, int[, ] b) {
             int temp;
 
             if (brickx == -3)
                 return false;
 
-            if (brickSize ("-x", b) == 0 && brickx == 0)
+            if (BrickSize (Direction.X_Inverted, b) == 0 && brickx == 0)
                 return false;
 
-            if (brickSize ("-x", b) == 1 && brickx == -1)
+            if (BrickSize (Direction.X_Inverted, b) == 1 && brickx == -1)
                 return false;
 
-            if (brickSize ("-x", b) == 3 && brickx == -2)
+            if (BrickSize (Direction.X_Inverted, b) == 3 && brickx == -2)
                 return false;
 
             for (int y = 0; y < 4; y++) {
@@ -125,10 +117,10 @@ namespace Falling_blocks {
 
         }
 
-        public bool canMoveRight (int addx, int[, ] b) {
+        public bool CanMoveRight (int addx, int[, ] b) {
             int temp;
 
-            if (brickx + brickSize ("x", b) >= 9)
+            if (brickx + BrickSize (Direction.X, b) >= 9)
                 return false;
 
             for (int y = 0; y < 4; y++) {
@@ -156,43 +148,43 @@ namespace Falling_blocks {
             return true;
         }
 
-        public void moveDown () {
-            undrawMe ();
+        public void MoveDown () {
+            Undraw ();
 
-            if (canMoveDown (1)) {
+            if (CanMoveDown (1)) {
                 bricky++;
-                drawMe ();
+                Draw ();
             } else {
-                drawMe ();
-                reset ();
+                Draw ();
+                Reset ();
             }
         }
 
-        public void moveLeft () {
+        public void MoveLeft () {
             wall = 0;
-            undrawMe ();
+            Undraw ();
 
-            if (canMoveLeft (1, shape)) {
+            if (CanMoveLeft (1, shape)) {
                 brickx--;
-                drawMe ();
+                Draw ();
             } else {
-                drawMe ();
+                Draw ();
             }
         }
 
-        public void moveRight () {
+        public void MoveRight () {
             wall = 0;
-            undrawMe ();
+            Undraw ();
 
-            if (canMoveRight (1, shape)) {
+            if (CanMoveRight (1, shape)) {
                 brickx++;
-                drawMe ();
+                Draw ();
             } else {
-                drawMe ();
+                Draw ();
             }
         }
 
-        public void reset () {
+        public void Reset () {
             fargeVar = r.Next (1, 5);
             bricky = -1;
             brickx = 3;
@@ -201,32 +193,25 @@ namespace Falling_blocks {
             if (first == true) {
                 switch (r.Next (1, 8)) {
                     case 1:
-                        shape = hook;
-                        first = false;
+                        shape = Shapes.hook;
                         break;
                     case 2:
-                        shape = lbar;
-                        first = false;
+                        shape = Shapes.lbar;
                         break;
                     case 3:
-                        shape = bar;
-                        first = false;
+                        shape = Shapes.bar;
                         break;
                     case 4:
-                        shape = square;
-                        first = false;
+                        shape = Shapes.square;
                         break;
                     case 5:
-                        shape = pyramid;
-                        first = false;
+                        shape = Shapes.pyramid;
                         break;
                     case 6:
-                        shape = hookInv;
-                        first = false;
+                        shape = Shapes.hookInv;
                         break;
                     case 7:
-                        shape = lbarInv;
-                        first = false;
+                        shape = Shapes.lbarInv;
                         break;
                 }
                 for (int x = 0; x < 4; x++) {
@@ -234,29 +219,30 @@ namespace Falling_blocks {
                         shape[x, y] = shape[x, y] * fargeVar;
                     }
                 }
+                first = false;
             }
 
             switch (r.Next (1, 8)) {
                 case 1:
-                    nextShape = hook;
+                    nextShape = Shapes.hook;
                     break;
                 case 2:
-                    nextShape = lbar;
+                    nextShape = Shapes.lbar;
                     break;
                 case 3:
-                    nextShape = bar;
+                    nextShape = Shapes.bar;
                     break;
                 case 4:
-                    nextShape = square;
+                    nextShape = Shapes.square;
                     break;
                 case 5:
-                    nextShape = pyramid;
+                    nextShape = Shapes.pyramid;
                     break;
                 case 6:
-                    nextShape = hookInv;
+                    nextShape = Shapes.hookInv;
                     break;
                 case 7:
-                    nextShape = lbarInv;
+                    nextShape = Shapes.lbarInv;
                     break;
             }
             for (int x = 0; x < 4; x++) {
@@ -265,18 +251,17 @@ namespace Falling_blocks {
                         nextShape[x, y] = nextShape[x, y] * fargeVar;
                 }
             }
-            points += poeng (brett);
+            points += Points (brett);
 
             for (int x = 0; x < 10; x++) {
                 if (brett[x, 0] != 0)
                     end = true;
             }
         }
-
-        public int brickSize (string s, int[, ] t) {
+        int BrickSize (Direction direction, int[, ] t) {
             int result = 0;
-            switch (s) {
-                case "x":
+            switch (direction) {
+                case Direction.X:
                     for (int x = 0; x < 4; x++) {
                         for (int y = 0; y < 4; y++) {
                             if (t[y, x] != 0 && result < x)
@@ -285,7 +270,7 @@ namespace Falling_blocks {
                     }
                     break;
 
-                case "y":
+                case Direction.Y:
                     for (int x = 0; x < 4; x++) {
                         for (int y = 0; y < 4; y++) {
                             if (t[y, x] != 0 && result < y)
@@ -294,7 +279,7 @@ namespace Falling_blocks {
                     }
                     break;
 
-                case "-x":
+                case Direction.X_Inverted:
                     result = 3;
                     for (int x = 3; x > -1; x--) {
                         for (int y = 3; y > -1; y--) {
@@ -307,17 +292,17 @@ namespace Falling_blocks {
             return result;
         }
 
-        public int poeng (int[, ] b) {
+        public int Points (int[, ] b) {
             int score = 0;
-            int radPoeng = 0;
+            int rowPoints = 0;
 
             for (int y = 0; y < 20; y++) {
-                radPoeng = 0;
+                rowPoints = 0;
                 for (int x = 0; x < 10; x++) {
                     if (b[x, y] != 0)
-                        radPoeng++;
+                        rowPoints++;
 
-                    if (radPoeng == 10) {
+                    if (rowPoints == 10) {
                         score++;
                         for (int t = y; y > 0; y--) {
                             for (int i = 0; i < 10; i++) {
@@ -330,7 +315,7 @@ namespace Falling_blocks {
             return score;
         }
 
-        public int[, ] rotate (int[, ] b) {
+        public int[, ] Rotate (int[, ] b) {
             int[, ] temp = new int[4, 4];
             for (int i = 0; i < 4; i++) {
                 temp[3, i] = b[i, 0];
@@ -344,7 +329,7 @@ namespace Falling_blocks {
             temp[2, 1] = b[1, 1];
             temp[2, 2] = b[2, 1];
 
-            undrawMe ();
+            Undraw ();
 
             for (int y = 0; y < 4; y++) {
                 for (int x = 0; x < 4; x++) {
@@ -362,14 +347,14 @@ namespace Falling_blocks {
 
                         if (temp[y, x] != 0 && brett[brickx + x, bricky + y] != 0)
                             return b;
-                    } else if (canMoveRight (1, temp) == true && brickSize ("-x", temp) == 0) {
+                    } else if (CanMoveRight (1, temp) == true && BrickSize (Direction.X_Inverted, temp) == 0) {
                         if (temp[x, y] != 0 && brett[brickx + 1 + x, bricky + y] != 0)
                             return b;
 
                         brickx++;
                         wall++;
                         return temp;
-                    } else if (canMoveLeft (1, temp) == true && brickSize ("x", temp) == 3) {
+                    } else if (CanMoveLeft (1, temp) == true && BrickSize (Direction.X, temp) == 3) {
                         if (temp[x, y] != 0 && brett[brickx - 1 + x, bricky + y] != 0)
                             return b;
 

@@ -1,4 +1,4 @@
-namespace Falling_blocks {
+namespace FallingBlocks {
     partial class Form1 {
         /// <summary>
         /// Required designer variable.
@@ -27,15 +27,15 @@ namespace Falling_blocks {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager (typeof (Form1));
             this.pbBrett = new System.Windows.Forms.PictureBox ();
             this.tmrGame = new System.Windows.Forms.Timer (this.components);
-            this.label1 = new System.Windows.Forms.Label ();
+            this.labelScore = new System.Windows.Forms.Label ();
             this.label_poeng = new System.Windows.Forms.Label ();
             this.pb2 = new System.Windows.Forms.PictureBox ();
-            this.label2 = new System.Windows.Forms.Label ();
-            this.label3 = new System.Windows.Forms.Label ();
+            this.labelNext = new System.Windows.Forms.Label ();
+            this.labelPause = new System.Windows.Forms.Label ();
             this.panel1 = new System.Windows.Forms.Panel ();
             this.panel2 = new System.Windows.Forms.Panel ();
-            this.button2 = new System.Windows.Forms.Button ();
-            this.button1 = new System.Windows.Forms.Button ();
+            this.buttonHighscore = new System.Windows.Forms.Button ();
+            this.buttonNewGame = new System.Windows.Forms.Button ();
             ((System.ComponentModel.ISupportInitialize) (this.pbBrett)).BeginInit ();
             ((System.ComponentModel.ISupportInitialize) (this.pb2)).BeginInit ();
             this.panel1.SuspendLayout ();
@@ -53,19 +53,19 @@ namespace Falling_blocks {
             // tmrGame
             // 
             this.tmrGame.Interval = 500;
-            this.tmrGame.Tick += new System.EventHandler (this.tmrGame_Tick);
+            this.tmrGame.Tick += new System.EventHandler (this.gameTimer_Tick);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font ("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point (3, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size (71, 24);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Score:";
+            this.labelScore.AutoSize = true;
+            this.labelScore.BackColor = System.Drawing.Color.Transparent;
+            this.labelScore.Font = new System.Drawing.Font ("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.labelScore.ForeColor = System.Drawing.Color.Red;
+            this.labelScore.Location = new System.Drawing.Point (3, 8);
+            this.labelScore.Name = "labelScore";
+            this.labelScore.Size = new System.Drawing.Size (71, 24);
+            this.labelScore.TabIndex = 1;
+            this.labelScore.Text = "Score:";
             // 
             // label_poeng
             // 
@@ -90,30 +90,30 @@ namespace Falling_blocks {
             // 
             // label2
             // 
-            this.label2.BackColor = System.Drawing.Color.Black;
-            this.label2.Font = new System.Drawing.Font ("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point (208, 64);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size (48, 16);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Next:";
+            this.labelNext.BackColor = System.Drawing.Color.Black;
+            this.labelNext.Font = new System.Drawing.Font ("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.labelNext.ForeColor = System.Drawing.Color.Red;
+            this.labelNext.Location = new System.Drawing.Point (208, 64);
+            this.labelNext.Name = "labelNext";
+            this.labelNext.Size = new System.Drawing.Size (48, 16);
+            this.labelNext.TabIndex = 4;
+            this.labelNext.Text = "Next:";
             // 
             // label3
             // 
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font ("Franklin Gothic Medium", 20.43F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point (48, 144);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size (96, 32);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Pause";
+            this.labelPause.BackColor = System.Drawing.Color.Transparent;
+            this.labelPause.Font = new System.Drawing.Font ("Franklin Gothic Medium", 20.43F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.labelPause.ForeColor = System.Drawing.Color.Red;
+            this.labelPause.Location = new System.Drawing.Point (48, 144);
+            this.labelPause.Name = "labelPause";
+            this.labelPause.Size = new System.Drawing.Size (96, 32);
+            this.labelPause.TabIndex = 5;
+            this.labelPause.Text = "Pause";
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlText;
-            this.panel1.Controls.Add (this.label1);
+            this.panel1.Controls.Add (this.labelScore);
             this.panel1.Controls.Add (this.label_poeng);
             this.panel1.Location = new System.Drawing.Point (208, 16);
             this.panel1.Name = "panel1";
@@ -123,8 +123,8 @@ namespace Falling_blocks {
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlText;
-            this.panel2.Controls.Add (this.button2);
-            this.panel2.Controls.Add (this.button1);
+            this.panel2.Controls.Add (this.buttonHighscore);
+            this.panel2.Controls.Add (this.buttonNewGame);
             this.panel2.Location = new System.Drawing.Point (208, 176);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size (128, 128);
@@ -132,39 +132,39 @@ namespace Falling_blocks {
             // 
             // button2
             // 
-            this.button2.Font = new System.Drawing.Font ("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.button2.ForeColor = System.Drawing.Color.Red;
-            this.button2.Location = new System.Drawing.Point (17, 54);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size (84, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Highscore";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler (this.button2_Click);
+            this.buttonHighscore.Font = new System.Drawing.Font ("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.buttonHighscore.ForeColor = System.Drawing.Color.Red;
+            this.buttonHighscore.Location = new System.Drawing.Point (17, 54);
+            this.buttonHighscore.Name = "buttonHighscore";
+            this.buttonHighscore.Size = new System.Drawing.Size (84, 23);
+            this.buttonHighscore.TabIndex = 1;
+            this.buttonHighscore.Text = "Highscore";
+            this.buttonHighscore.UseVisualStyleBackColor = true;
+            this.buttonHighscore.Click += new System.EventHandler (this.buttonHighscore_Click);
             // 
             // button1
             // 
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Font = new System.Drawing.Font ("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point (17, 25);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size (84, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "New Game";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler (this.button1_Click);
+            this.buttonNewGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonNewGame.Font = new System.Drawing.Font ("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.buttonNewGame.ForeColor = System.Drawing.Color.Red;
+            this.buttonNewGame.Location = new System.Drawing.Point (17, 25);
+            this.buttonNewGame.Name = "buttonNewGame";
+            this.buttonNewGame.Size = new System.Drawing.Size (84, 23);
+            this.buttonNewGame.TabIndex = 0;
+            this.buttonNewGame.Text = "New Game";
+            this.buttonNewGame.UseVisualStyleBackColor = true;
+            this.buttonNewGame.Click += new System.EventHandler (this.buttonNewGame_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF (6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = System.Drawing.Image.FromFile ("bakgrunn.bmp");
+            this.BackgroundImage = System.Drawing.Image.FromFile ("panel_bakgrunn.bmp");
             this.ClientSize = new System.Drawing.Size (384, 352);
             this.Controls.Add (this.panel2);
             this.Controls.Add (this.panel1);
-            this.Controls.Add (this.label3);
-            this.Controls.Add (this.label2);
+            this.Controls.Add (this.labelPause);
+            this.Controls.Add (this.labelNext);
             this.Controls.Add (this.pb2);
             this.Controls.Add (this.pbBrett);
             //this.Icon = ((System.Drawing.Icon. (resources.GetObject ("$this.Icon")));
@@ -188,15 +188,15 @@ namespace Falling_blocks {
 
         private System.Windows.Forms.PictureBox pbBrett;
         private System.Windows.Forms.Timer tmrGame;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelScore;
         private System.Windows.Forms.Label label_poeng;
         private System.Windows.Forms.PictureBox pb2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelNext;
+        private System.Windows.Forms.Label labelPause;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonHighscore;
+        private System.Windows.Forms.Button buttonNewGame;
 
     }
 }

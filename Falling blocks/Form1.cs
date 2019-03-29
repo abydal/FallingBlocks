@@ -6,20 +6,20 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Falling_blocks {
+namespace FallingBlocks {
     public partial class Form1 : Form {
-        static int[, ] brett = new int[10, 20];
+        static int[, ] board = new int[10, 20];
         static int[, ] next = new int[4, 4];
-        Bitmap bmpBrett = new Bitmap (160, 320, System.Drawing.Imaging.PixelFormat.Format16bppRgb555);
-        Bitmap bmpBrett2 = new Bitmap (64, 64, System.Drawing.Imaging.PixelFormat.Format16bppRgb555);
-        Bitmap[] farger = new Bitmap[10];
+        Bitmap bmpBoard = new Bitmap (160, 320, System.Drawing.Imaging.PixelFormat.Format16bppRgb555);
+        Bitmap bmpBoard2 = new Bitmap (64, 64, System.Drawing.Imaging.PixelFormat.Format16bppRgb555);
+        Bitmap[] colors = new Bitmap[10];
         Bitmap[] grfx = new Bitmap[10];
         int xpos = 10;
         int ypos = 19;
         int speed = 500;
         bool pause = false;
 
-        brick myBrick = new brick (brett);
+        Brick myBrick = new Brick (board);
 
         public Form1 () {
             InitializeComponent ();
@@ -33,14 +33,14 @@ namespace Falling_blocks {
             grfx[2] = (Bitmap) Bitmap.FromFile ("tetrisblokk_b.bmp");
             grfx[3] = (Bitmap) Bitmap.FromFile ("tetrisblokk_g.bmp");
             grfx[4] = (Bitmap) Bitmap.FromFile ("tetrisblokk_gr.bmp");
-            farger[0] = (Bitmap) Bitmap.FromFile ("bakgrunn.bmp");
-            farger[1] = (Bitmap) Bitmap.FromFile ("tetrisblokk.bmp");
-            farger[2] = (Bitmap) Bitmap.FromFile ("tetrisblokk_b.bmp");
-            farger[3] = (Bitmap) Bitmap.FromFile ("tetrisblokk_g.bmp");
-            farger[4] = (Bitmap) Bitmap.FromFile ("tetrisblokk_gr.bmp");
-            brett.Initialize ();
+            colors[0] = (Bitmap) Bitmap.FromFile ("bakgrunn.bmp");
+            colors[1] = (Bitmap) Bitmap.FromFile ("tetrisblokk.bmp");
+            colors[2] = (Bitmap) Bitmap.FromFile ("tetrisblokk_b.bmp");
+            colors[3] = (Bitmap) Bitmap.FromFile ("tetrisblokk_g.bmp");
+            colors[4] = (Bitmap) Bitmap.FromFile ("tetrisblokk_gr.bmp");
+            board.Initialize ();
             next.Initialize ();
-            label3.Hide ();
+            labelPause.Hide ();
             myBrick.points = 0;
             panel2.Hide ();
 
@@ -49,9 +49,9 @@ namespace Falling_blocks {
 
         public void engineRun () {
             if (myBrick.end == true) {
-                gameOver ();
+                GameOver ();
             } else {
-                myBrick.moveDown ();
+                myBrick.MoveDown ();
                 label_poeng.Text = myBrick.points.ToString ();
                 next = myBrick.nextShape;
 
@@ -62,15 +62,15 @@ namespace Falling_blocks {
         }
 
         private void drawBrett () {
-            Graphics g = Graphics.FromImage (bmpBrett);
-            Graphics v = Graphics.FromImage (bmpBrett2);
+            Graphics g = Graphics.FromImage (bmpBoard);
+            Graphics v = Graphics.FromImage (bmpBoard2);
 
             for (int y = 0; y < 20; y++) {
                 for (int x = 0; x < 10; x++) {
                     //går over hele brettet og tegner blokker der brett[] er 1
                     //blokkene er 16x16 fillRect's med en farge som tas ut fra fargetabellen
                     //g.FillRectangle(farger[brett[x,y]], x * 16, y * 16, 16, 16);
-                    g.DrawImage (farger[brett[x, y]], x * 16, y * 16);
+                    g.DrawImage (colors[board[x, y]], x * 16, y * 16);
                 }
             }
 
@@ -79,17 +79,17 @@ namespace Falling_blocks {
                     //går over hele brettet og tegner blokker der brett[] er 1
                     //blokkene er 16x16 fillRect's med en farge som tas ut fra fargetabellen
                     //v.FillRectangle(farger[next[x, y]], x * 16, y * 16, 16, 16);
-                    v.DrawImage (farger[next[y, x]], x * 16, y * 16);
+                    v.DrawImage (colors[next[y, x]], x * 16, y * 16);
                 }
             }
 
             pb2.BackgroundImage = null;
-            pb2.BackgroundImage = bmpBrett2;
+            pb2.BackgroundImage = bmpBoard2;
             pbBrett.BackgroundImage = null;
-            pbBrett.BackgroundImage = bmpBrett; //bildet/brettet tegnes inn i pictureBox
+            pbBrett.BackgroundImage = bmpBoard; //bildet/brettet tegnes inn i pictureBox
         }
 
-        private void tmrGame_Tick (object sender, EventArgs e) {
+        private void gameTimer_Tick (object sender, EventArgs e) {
             engineRun ();
 
         }
@@ -104,27 +104,27 @@ namespace Falling_blocks {
 
             switch (e.KeyCode.ToString ()) {
                 case "W":
-                    myBrick.shape = myBrick.rotate (myBrick.shape);
-                    myBrick.drawMe ();
+                    myBrick.shape = myBrick.Rotate (myBrick.shape);
+                    myBrick.Draw ();
                     break;
                 case "A":
-                    myBrick.moveLeft ();
+                    myBrick.MoveLeft ();
                     break;
                 case "D":
-                    myBrick.moveRight ();
+                    myBrick.MoveRight ();
                     break;
                 case "S":
                     tmrGame.Interval = 10;
                     break;
                 case "Up":
-                    myBrick.shape = myBrick.rotate (myBrick.shape);
-                    myBrick.drawMe ();
+                    myBrick.shape = myBrick.Rotate (myBrick.shape);
+                    myBrick.Draw ();
                     break;
                 case "Left":
-                    myBrick.moveLeft ();
+                    myBrick.MoveLeft ();
                     break;
                 case "Right":
-                    myBrick.moveRight ();
+                    myBrick.MoveRight ();
                     break;
                 case "Down":
                     tmrGame.Interval = 10;
@@ -133,11 +133,11 @@ namespace Falling_blocks {
                     if (pause == false) {
                         tmrGame.Stop ();
                         pause = true;
-                        label3.Show ();
+                        labelPause.Show ();
                     } else {
                         tmrGame.Start ();
                         pause = false;
-                        label3.Hide ();
+                        labelPause.Hide ();
                     }
 
                     break;
@@ -161,13 +161,13 @@ namespace Falling_blocks {
 
         }
 
-        private void gameOver () {
+        private void GameOver () {
             tmrGame.Interval = 50;
 
             if (ypos == 0 && xpos == 8) {
                 tmrGame.Stop ();
                 tmrGame.Interval = 500;
-                brett.Initialize ();
+                board.Initialize ();
                 myBrick.end = false;
                 Form2 f = new Form2 (myBrick.points);
                 f.Show ();
@@ -179,7 +179,7 @@ namespace Falling_blocks {
                     xpos++;
                 else ypos--;
 
-                brett[xpos, ypos] = 1;
+                board[xpos, ypos] = 1;
             }
 
             if (ypos % 2 == 1) {
@@ -187,22 +187,22 @@ namespace Falling_blocks {
                     xpos--;
                 else ypos--;
 
-                brett[xpos, ypos] = 1;
+                board[xpos, ypos] = 1;
             }
             drawBrett ();
         }
 
-        private void button2_Click (object sender, EventArgs e) {
+        private void buttonHighscore_Click (object sender, EventArgs e) {
             HighScores n = new HighScores ();
             n.Show ();
         }
 
-        private void button1_Click (object sender, EventArgs e) {
-            brett = new int[10, 20];
-            myBrick = new brick (brett);
+        private void buttonNewGame_Click (object sender, EventArgs e) {
+            board = new int[10, 20];
+            myBrick = new Brick (board);
             drawBrett ();
             next.Initialize ();
-            label3.Hide ();
+            labelPause.Hide ();
             myBrick.points = 0;
             panel2.Hide ();
             xpos = 10;

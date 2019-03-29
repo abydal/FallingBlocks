@@ -7,7 +7,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Falling_blocks {
+namespace FallingBlocks {
     public partial class HighScores : Form {
         public HighScores () {
             InitializeComponent ();

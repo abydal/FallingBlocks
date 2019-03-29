@@ -1,4 +1,4 @@
-namespace Falling_blocks {
+namespace FallingBlocks {
     partial class HighScores {
         /// <summary>
         /// Required designer variable.

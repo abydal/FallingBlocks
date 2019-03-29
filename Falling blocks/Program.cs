@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Falling_blocks {
+namespace FallingBlocks {
     static class Program {
         /// <summary>
         /// The main entry point for the application.

@@ -1,4 +1,4 @@
-namespace Falling_blocks {
+namespace FallingBlocks {
     partial class Form2 {
         /// <summary>
         /// Required designer variable.
